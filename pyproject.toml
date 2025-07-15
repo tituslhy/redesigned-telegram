@@ -10,4 +10,7 @@ dependencies = [
     "langchain-ollama>=0.3.4",
     "langgraph>=0.5.3",
     "fastmcp>=2.10.5",
+    "langchain-mcp-adapters>=0.1.9",
+    "jupyter>=1.1.1",
+    "ipykernel>=6.29.5",
 ]
