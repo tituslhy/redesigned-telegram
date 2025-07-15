@@ -1,7 +1,7 @@
 import chainlit as cl
 import logging
 
-from langchain_core.messages import HumanMessage, AIMessage
+from langchain_core.messages import HumanMessage
 from langchain_mcp_adapters.client import MultiServerMCPClient
 from langchain_ollama import ChatOllama
 from langgraph.graph import MessagesState, StateGraph, START, END
