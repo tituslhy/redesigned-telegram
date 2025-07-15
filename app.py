@@ -35,6 +35,7 @@ async def on_message(message: cl.Message):
     config = {"configurable": {"thread_id": cl.context.session.id}}
     history = cl.user_session.get("history")
     history.append(HumanMessage(content=message.content))
+    logger.info(f"\n\nCurrent history: {history}\n\n")
     agent = cl.user_session.get("agent")
     logger.info("Using agent with tools")
     if agent is None:
@@ -42,7 +43,7 @@ async def on_message(message: cl.Message):
         logger.info("Using default agent")
     reply = cl.Message(content="")
     
-    async for msg, _ in agent.astream(
+    async for msg, metadata in agent.astream(
         {"messages": history},
         stream_mode="messages",
         config = config
@@ -52,6 +53,8 @@ async def on_message(message: cl.Message):
             and not isinstance(msg, HumanMessage)
             # and metadata["langgraph_node"] == "final"
         ):
+            logger.info(f"\n\nMessage type: {type(msg)}")
+            logger.info(f"\n\nMessage metadata: {metadata}")
             await reply.stream_token(msg.content)
     
     await reply.send()
